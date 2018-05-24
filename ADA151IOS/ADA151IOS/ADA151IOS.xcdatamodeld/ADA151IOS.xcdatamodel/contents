@@ -12,7 +12,7 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Task" positionX="-63" positionY="-18" width="128" height="120"/>
         <element name="Category" positionX="-63" positionY="18" width="128" height="75"/>
+        <element name="Task" positionX="-63" positionY="-18" width="128" height="120"/>
     </elements>
 </model>
