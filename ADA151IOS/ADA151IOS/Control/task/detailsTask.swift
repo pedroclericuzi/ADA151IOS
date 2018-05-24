@@ -17,6 +17,9 @@ class detailsTask: Util {
     override func viewDidLoad() {
         super.viewDidLoad()
         tilte.text = arrTitleTask[myIndex]
+        let deadlineSplit = arrDeadlineTask[myIndex].components(separatedBy: " ")
+        deadline.text = ("\(deadlineSplit[1])")
+        category.text = arrCategoryTask[myIndex]
         // Do any additional setup after loading the view.
     }
 

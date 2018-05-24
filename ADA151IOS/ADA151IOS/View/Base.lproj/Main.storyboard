@@ -192,6 +192,10 @@
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VIq-s8-XHo">
                                 <rect key="frame" x="16" y="371" width="343" height="160"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="8Wa-yI-EvD" id="rhe-Bg-4jY"/>
+                                    <outlet property="delegate" destination="8Wa-yI-EvD" id="sS6-wn-JZp"/>
+                                </connections>
                             </pickerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Categories:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UpE-TN-bOm">
                                 <rect key="frame" x="16" y="342" width="132" height="21"/>
@@ -205,8 +209,17 @@
                         <viewLayoutGuide key="safeArea" id="UUc-Ue-Lsn"/>
                     </view>
                     <navigationItem key="navigationItem" title="Edit Task" id="sDc-26-6NR">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="AQt-ZN-Pvq"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="AQt-ZN-Pvq">
+                            <connections>
+                                <action selector="btSaveEdit:" destination="8Wa-yI-EvD" id="dBo-OL-zaY"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="categoryEdit" destination="VIq-s8-XHo" id="Zxt-xh-hTh"/>
+                        <outlet property="deadlineEdit" destination="Cmb-E0-MlW" id="V9w-F0-dtG"/>
+                        <outlet property="titleEdit" destination="gAM-xj-G0x" id="nM4-nP-xSx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ybl-pf-qvQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -430,7 +443,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="title for this new category" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dt8-uS-8AA">
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="(black, gray, margenta, etc)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dt8-uS-8AA">
                                 <rect key="frame" x="16" y="102" width="343" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
@@ -447,7 +460,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="the hexadecimal of the color" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="A9T-za-4ZU">
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="(#000000, #FFFFFF, #EBB22F, etc)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="A9T-za-4ZU">
                                 <rect key="frame" x="16" y="169" width="343" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>

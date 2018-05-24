@@ -21,12 +21,9 @@ class ModelTask: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func saveTask(title:String, mDate:Date, category:String) {
+    func saveTask(title:String, mDate:Date, category:String) -> String {
         let context = utilControler.initCoreData();
-        print("entrou")
-        //let requisition = NSFetchRequest<NSFetchRequestResult>(entityName:"Task");
         do {
-            //let category = try context.fetch(requisition);
             let objManagement = NSEntityDescription.insertNewObject(forEntityName: "Task", into: context);
             let id:String = utilControler.generateID();
             objManagement.setValue(id, forKey: "id");
@@ -35,8 +32,10 @@ class ModelTask: UIViewController {
             objManagement.setValue(category, forKey: "category");
             objManagement.setValue("doing", forKey: "status");
             try context.save();
+            return id
         } catch {
             print("Fatal error to register the taks")
+            return "error"
         }
     }
     
@@ -54,7 +53,7 @@ class ModelTask: UIViewController {
                 objManagement.setValue(title, forKey: "title");
                 objManagement.setValue(mDate, forKey: "deadline");
                 objManagement.setValue(category, forKey: "category");
-                objManagement.setValue("todo", forKey: "status");
+                objManagement.setValue("doing", forKey: "status");
                 context.delete(managedObject);
                 try context.save();
             }

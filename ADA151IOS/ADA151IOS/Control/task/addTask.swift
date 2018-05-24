@@ -18,7 +18,7 @@ class addTask: Util, UIPickerViewDataSource, UIPickerViewDelegate {
     let modelTask:ModelTask = ModelTask()
     let modelCategory: ModelCategory = ModelCategory();
     
-    var arrCategories:[String] = [];
+    var generalCategories:[String] = [];
     @IBOutlet weak var pickerCategories: UIPickerView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +29,7 @@ class addTask: Util, UIPickerViewDataSource, UIPickerViewDelegate {
         modelCategory.categoryInit()
         for currentCategory in modelCategory.getAll() {
             let myCategory:String = currentCategory.value(forKey: "category")! as! String;
-            arrCategories.append(myCategory);
+            generalCategories.append(myCategory);
         }
     }
     
@@ -45,16 +45,43 @@ class addTask: Util, UIPickerViewDataSource, UIPickerViewDelegate {
     @IBAction func btSaveTask(_ sender: Any) {
         let componentCategory:Int = self.pickerCategories.selectedRow(inComponent: 0);
         let valueTitleTask = self.titleTask.text!
-        let valueDeadlineTask = self.deadlineTask.date
-        let valueCategories = arrCategories[componentCategory]
-        modelTask.saveTask(title: valueTitleTask, mDate: valueDeadlineTask, category: valueCategories)
-        //let availableClass:AvailableTab = AvailableTab();
-        //availableClass.Teste()
-        arrIdTask.append("teste")
-        arrTitleTask.append(valueTitleTask)
-        arrDeadlineTask.append("\(valueDeadlineTask)")
-        arrColorTask.append(valueCategories)
+        let valueDeadlineTask = self.timeFormat(deadline: self.deadlineTask.date)
+        let valueCategories = generalCategories[componentCategory]
+        let idRet:String = modelTask.saveTask(title: valueTitleTask, mDate: valueDeadlineTask, category: valueCategories)
+        self.newData(id: idRet, title: valueTitleTask, deadline: valueDeadlineTask, category: valueCategories)
         self.dismissSegue()
+    }
+    
+    //Formatting the hour from text picker
+    func timeFormat (deadline:Date) -> Date{
+        let dateFormatter = DateFormatter();
+        dateFormatter.dateFormat = "yyyy-MM-dd hh:mma";
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT+2:00");
+        let finalDate = dateFormatter.string(from: deadline);
+        let dateObj = dateFormatter.date(from: finalDate)
+        return dateObj!
+    }
+    
+    //Method to add the new data in array
+    func newData(id:String, title:String, deadline:Date, category:String) {
+        if id.elementsEqual("error") == false {
+            arrIdTask.append(id)
+            arrTitleTask.append(title)
+            let dateFormatter = DateFormatter();
+            dateFormatter.dateFormat = "MM/dd/yyyy hh:mma";
+            dateFormatter.timeZone = TimeZone(abbreviation: "GMT+2:00");
+            arrDeadlineTask.append("deadline: \(dateFormatter.string(from: deadline))")
+            arrCategoryTask.append(category)
+            
+            let modelCategory: ModelCategory = ModelCategory();
+            for currentCategory in modelCategory.getAll() {
+                let categoriesToCompare:String = currentCategory.value(forKey: "category")! as! String;
+                if(categoriesToCompare==category){
+                    let hexColor:String = currentCategory.value(forKey: "color")! as! String;
+                    arrColorTask.append(hexColor);
+                }
+            }
+        }
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -62,11 +89,11 @@ class addTask: Util, UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return arrCategories.count
+        return generalCategories.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return arrCategories[row]
+        return generalCategories[row]
     }
     
 }

@@ -36,7 +36,7 @@ class AvailableTab: Util, UITableViewDataSource, UITableViewDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("viewWillAppear done")
+        //print("viewWillAppear done")
         self.listAvailable.reloadData();
         
     }
@@ -48,7 +48,7 @@ class AvailableTab: Util, UITableViewDataSource, UITableViewDelegate {
     
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("\(arrIdTask.count)")
+        //print("\(arrIdTask.count)")
         return arrIdTask.count
     }
     
@@ -56,7 +56,7 @@ class AvailableTab: Util, UITableViewDataSource, UITableViewDelegate {
         let cell:TaskCell = listAvailable.dequeueReusableCell(withIdentifier: idCell) as! TaskCell
         
         cell.labelTask.text = arrTitleTask[indexPath.row]
-        cell.labelDate.text = arrTitleTask[indexPath.row]
+        cell.labelDate.text = arrDeadlineTask[indexPath.row]
         cell.viewCategory!.layer.cornerRadius = 12.5;
         cell.viewCategory!.clipsToBounds = true;
         cell.viewCategory!.backgroundColor = self.convertColor(string: arrColorTask[indexPath.row])
@@ -102,7 +102,7 @@ class AvailableTab: Util, UITableViewDataSource, UITableViewDelegate {
     func arrayTasks() {
         for currentTask in modelTask.getTask() {
             let dateFormatter = DateFormatter();
-            dateFormatter.dateFormat = "'deadline: 'dd/MM/yyyy 'at' HH:mma";
+            dateFormatter.dateFormat = "'deadline: 'dd/MM/yyyy 'at' hh:mma";
             dateFormatter.timeZone = TimeZone(abbreviation: "GMT+2:00");
             //Status
             let statusTask:String = currentTask.value(forKey: "status") as! String;
