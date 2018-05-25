@@ -8,7 +8,8 @@
 
 import UIKit
 import CoreData
-//This class
+import UserNotifications
+
 class Util: UIViewController {
 
     override func viewDidLoad() {
@@ -26,13 +27,6 @@ class Util: UIViewController {
         let context = appDelegate.persistentContainer.viewContext;
         return context;
     }
-
-    //method to call other storyboard
-//    @objc func otherScreen(screen:String){
-//        let story = UIStoryboard(name: screen, bundle: nil);
-//        let myView = story.instantiateViewController(withIdentifier: screen) as? UIViewController;
-//        self.present(myView!, animated:true , completion: nil);
-//    }
     
     func dismissSegue (){
         navigationController?.popViewController(animated: true)
@@ -63,25 +57,6 @@ class Util: UIViewController {
         }
         return UIColor.init(red: red, green: green, blue: blue, alpha: alpha);
     }
-    //Get the name of color and set the hex
-    func colorNameToHex(color:String) -> String {
-        let arrColor = self.listColor();
-        var strReturn:String!;
-        for search in arrColor{
-            //print(search);
-            if(search.key==color){
-                strReturn = search.value;
-            }
-        }
-        return strReturn;
-    }
-    //List that contains the colors and yours hex used
-    func listColor() -> DictionaryLiteral<String, String> {
-        let arrColor = ["light green":"#C6DA02", "green":"#79A700",
-                        "orange":"#F68B2C", "gold":"#E2B400",
-                        "red":"#F5522D", "pink":"#F5522D"] as DictionaryLiteral<String,String>;
-        return arrColor;
-    }
     
     //generate a unique id for save with the tasks
     func generateID() -> String {
@@ -92,9 +67,28 @@ class Util: UIViewController {
         return resultID;
     }
     
-    //delete the user default with the user id
-    func deleteUserDefault() {
-        let prefs = UserDefaults.standard;
-        prefs.removeObject(forKey: "idTask")
+    func localNotification (deadline:Date, title: String, id:String){
+        let calendar = Calendar.current
+        let comp2 = calendar.dateComponents([.year,.month,.day,.hour,.minute], from: deadline)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: comp2, repeats: false)
+        
+        let content = UNMutableNotificationContent()
+        content.title = "\(title)'s deadline"
+        content.subtitle = "Did you finished?"
+        content.body = "Then, mark as done!"
+        
+        let request = UNNotificationRequest(
+            identifier: "identifier",
+            content: content,
+            trigger: trigger
+        )
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: { error in
+            if error != nil {
+                print("\(error)")
+            }
+        })
+        
     }
+    
 }

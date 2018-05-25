@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreData
+import UserNotifications
+
 class ModelTask: UIViewController {
     
     let utilControler:Util = Util();
@@ -39,7 +41,7 @@ class ModelTask: UIViewController {
         }
     }
     
-    func editTask(id:String,title:String,mDate:Date,category:String) {
+    func editTask(id:String,titleTask:String,mDate:Date,category:String) {
         let context = utilControler.initCoreData();
         let requisition = NSFetchRequest<NSFetchRequestResult>(entityName:"Task");
         requisition.predicate = NSPredicate(format: "id == %@", id);
@@ -50,7 +52,7 @@ class ModelTask: UIViewController {
             {
                 let objManagement = NSEntityDescription.insertNewObject(forEntityName: "Task", into: context);
                 objManagement.setValue(id, forKey: "id");
-                objManagement.setValue(title, forKey: "title");
+                objManagement.setValue(titleTask, forKey: "title");
                 objManagement.setValue(mDate, forKey: "deadline");
                 objManagement.setValue(category, forKey: "category");
                 objManagement.setValue("doing", forKey: "status");
@@ -60,6 +62,10 @@ class ModelTask: UIViewController {
         }catch let error as NSError{
             print("Ocurred a fatal error: \(error.description) ");
         }
+        
+        let center = UNUserNotificationCenter.current()
+        center.removePendingNotificationRequests(withIdentifiers:[id]) //Removing the current deadline's notification to this task
+        utilControler.localNotification(deadline: mDate, title: titleTask, id: id) //creating a new notification
     }
     
     func getTask() -> [NSManagedObject] {

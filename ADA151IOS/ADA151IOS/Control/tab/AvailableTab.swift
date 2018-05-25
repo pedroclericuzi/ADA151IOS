@@ -75,17 +75,16 @@ class AvailableTab: Util, UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
         let done = UITableViewRowAction(style: .normal, title: "Done") { action, index in
-            self.modelTask.done(id: arrIdTask[index.row]);
-            self.removeFromArrayAvailable(index: index.row);
+            self.modelTask.done(id: arrIdTask[index.row])
+            self.removeFromArrayAvailable(index: index.row)
         }
-        let myColorGreen:String=self.colorNameToHex(color: "green");
-        done.backgroundColor = self.convertColor(string: myColorGreen);
+        done.backgroundColor = UIColor.green
         
         let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
-            self.modelTask.deleteTask(id: arrIdTask[index.row]);
-            self.removeFromArrayAvailable(index: index.row);
+            self.modelTask.deleteTask(id: arrIdTask[index.row])
+            self.removeFromArrayAvailable(index: index.row)
         }
-        delete.backgroundColor = UIColor.red;
+        delete.backgroundColor = UIColor.red
         return [delete, done]
         
     }

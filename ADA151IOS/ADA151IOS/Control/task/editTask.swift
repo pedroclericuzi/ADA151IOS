@@ -67,7 +67,7 @@ class editTask: Util, UIPickerViewDelegate, UIPickerViewDataSource {
         let componentCategory:Int = self.categoryEdit.selectedRow(inComponent: 0);
         let yourCategory:String = arrCategories[componentCategory];
         self.replaceDataArray(id: arrIdTask[myIndex], title: title, deadline: addTaskClass.timeFormat(deadline: self.deadlineEdit.date), category: yourCategory)
-        modelTask.editTask(id: arrIdTask[myIndex],title: title, mDate: addTaskClass.timeFormat(deadline: self.deadlineEdit.date), category: yourCategory);
+        modelTask.editTask(id: arrIdTask[myIndex],titleTask: title, mDate: addTaskClass.timeFormat(deadline: self.deadlineEdit.date), category: yourCategory);
         //self.dismissSegue()
         let controller = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)! - 3]
         self.navigationController?.popToViewController(controller!, animated: true)

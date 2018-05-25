@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 class addTask: Util, UIPickerViewDataSource, UIPickerViewDelegate {
     
@@ -31,6 +32,8 @@ class addTask: Util, UIPickerViewDataSource, UIPickerViewDelegate {
             let myCategory:String = currentCategory.value(forKey: "category")! as! String;
             generalCategories.append(myCategory);
         }
+        
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -81,6 +84,7 @@ class addTask: Util, UIPickerViewDataSource, UIPickerViewDelegate {
                     arrColorTask.append(hexColor);
                 }
             }
+            self.localNotification(deadline:deadline, title: title, id: id)
         }
     }
     

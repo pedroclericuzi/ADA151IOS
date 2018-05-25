@@ -13,6 +13,10 @@ class addCategory: Util, UITableViewDelegate {
     @IBOutlet weak var titleCategory: UITextField!
     @IBOutlet weak var hexCategory: UITextField!
     
+    //Classes to do communication with the base
+    let modelTask:ModelTask = ModelTask()
+    let modelCategory: ModelCategory = ModelCategory();
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -28,7 +32,8 @@ class addCategory: Util, UITableViewDelegate {
     }
     
     @IBAction func save(_ sender: Any) {
-        
+        modelCategory.save(name: self.titleCategory.text!, color: self.hexCategory.text!)
+        self.dismissSegue()
     }
 
 }

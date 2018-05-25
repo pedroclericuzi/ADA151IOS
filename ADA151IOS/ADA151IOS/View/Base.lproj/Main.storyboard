@@ -397,6 +397,9 @@
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Eul-j2-1wq">
                                 <rect key="frame" x="295" y="87" width="49" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="myNotifications:" destination="lYp-jk-90S" eventType="valueChanged" id="IsS-c8-ewX"/>
+                                </connections>
                             </switch>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J1I-La-gbI">
                                 <rect key="frame" x="26" y="129" width="333" height="1"/>
@@ -430,6 +433,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="f8H-A2-bOF"/>
                     </view>
+                    <connections>
+                        <outlet property="mySwitch" destination="Eul-j2-1wq" id="7jP-Nc-Aah"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cps-Yb-Ycm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
