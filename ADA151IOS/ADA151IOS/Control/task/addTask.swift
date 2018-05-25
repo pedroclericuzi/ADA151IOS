@@ -68,20 +68,20 @@ class addTask: Util, UIPickerViewDataSource, UIPickerViewDelegate {
     //Method to add the new data in array
     func newData(id:String, title:String, deadline:Date, category:String) {
         if id.elementsEqual("error") == false {
-            arrIdTask.append(id)
-            arrTitleTask.append(title)
+            avIdTask.append(id)
+            avTitleTask.append(title)
             let dateFormatter = DateFormatter();
             dateFormatter.dateFormat = "MM/dd/yyyy hh:mma";
             dateFormatter.timeZone = TimeZone(abbreviation: "GMT+2:00");
-            arrDeadlineTask.append("deadline: \(dateFormatter.string(from: deadline))")
-            arrCategoryTask.append(category)
+            avDeadlineTask.append("deadline: \(dateFormatter.string(from: deadline))")
+            avCategoryTask.append(category)
             
             let modelCategory: ModelCategory = ModelCategory();
             for currentCategory in modelCategory.getAll() {
                 let categoriesToCompare:String = currentCategory.value(forKey: "category")! as! String;
                 if(categoriesToCompare==category){
                     let hexColor:String = currentCategory.value(forKey: "color")! as! String;
-                    arrColorTask.append(hexColor);
+                    avColorTask.append(hexColor);
                 }
             }
             self.localNotification(deadline:deadline, title: title, id: id)

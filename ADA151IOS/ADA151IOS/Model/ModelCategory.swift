@@ -23,7 +23,7 @@ class ModelCategory: UIViewController {
             let category = try context.fetch(requisition);
             if (category.count == 0) {
                 let myCategories = ["light green":"#C6DA02", "green":"#79A700",
-                                    "orange":"#F68B2C", "gold":"#E2B400", "red":"#F5522D", "pink":"#F5522D"];
+                                    "orange":"#F68B2C", "gold":"#E2B400", "red":"#F5522D", "pink":"#FF6E83"];
                 
                 for registerCategories in myCategories {
                     let objManagement = NSEntityDescription.insertNewObject(forEntityName: "Category", into: context);

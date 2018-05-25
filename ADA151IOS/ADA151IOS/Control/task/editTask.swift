@@ -29,7 +29,7 @@ class editTask: Util, UIPickerViewDelegate, UIPickerViewDataSource {
         }
         
         // Do any additional setup after loading the view.
-        for currentTask in self.modelTask.getSpecificTask(id: arrIdTask[myIndex]) {
+        for currentTask in self.modelTask.getSpecificTask(id: avIdTask[indexAvailable]) {
             self.titleEdit.text = currentTask.value(forKey: "title")! as? String
             let deadlineFromCore = currentTask.value(forKey: "deadline")! as! Date
             self.deadlineEdit.timeZone = TimeZone(abbreviation: "GMT+2:00") //Setting the time zone from czech republic
@@ -66,8 +66,8 @@ class editTask: Util, UIPickerViewDelegate, UIPickerViewDataSource {
         let title:String = self.titleEdit.text!;
         let componentCategory:Int = self.categoryEdit.selectedRow(inComponent: 0);
         let yourCategory:String = arrCategories[componentCategory];
-        self.replaceDataArray(id: arrIdTask[myIndex], title: title, deadline: addTaskClass.timeFormat(deadline: self.deadlineEdit.date), category: yourCategory)
-        modelTask.editTask(id: arrIdTask[myIndex],titleTask: title, mDate: addTaskClass.timeFormat(deadline: self.deadlineEdit.date), category: yourCategory);
+        self.replaceDataArray(id: avIdTask[indexAvailable], title: title, deadline: addTaskClass.timeFormat(deadline: self.deadlineEdit.date), category: yourCategory)
+        modelTask.editTask(id: avIdTask[indexAvailable],titleTask: title, mDate: addTaskClass.timeFormat(deadline: self.deadlineEdit.date), category: yourCategory);
         //self.dismissSegue()
         let controller = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)! - 3]
         self.navigationController?.popToViewController(controller!, animated: true)
@@ -76,20 +76,20 @@ class editTask: Util, UIPickerViewDelegate, UIPickerViewDataSource {
     //Method to add the new data in array
     func replaceDataArray(id:String, title:String, deadline:Date, category:String) {
         if id.elementsEqual("error") == false {
-            arrIdTask[myIndex] = id
-            arrTitleTask[myIndex] = title
+            avIdTask[indexAvailable] = id
+            avTitleTask[indexAvailable] = title
             let dateFormatter = DateFormatter();
             dateFormatter.dateFormat = "MM/dd/yyyy hh:mma";
             dateFormatter.timeZone = TimeZone(abbreviation: "GMT+2:00");
-            arrDeadlineTask[myIndex] = "deadline: \(dateFormatter.string(from: deadline))"
-            arrCategoryTask[myIndex] = category
+            avDeadlineTask[indexAvailable] = "deadline: \(dateFormatter.string(from: deadline))"
+            avCategoryTask[indexAvailable] = category
             
             let modelCategory: ModelCategory = ModelCategory()
             for currentCategory in modelCategory.getAll() {
                 let categoriesToCompare:String = currentCategory.value(forKey: "category")! as! String
                 if(categoriesToCompare==category){
                     let hexColor:String = currentCategory.value(forKey: "color")! as! String
-                    arrColorTask[myIndex] = hexColor
+                    avColorTask[indexAvailable] = hexColor
                 }
             }
         }

@@ -13,13 +13,13 @@ class detailsTask: Util {
     @IBOutlet weak var tilte: UILabel!
     @IBOutlet weak var deadline: UILabel!
     @IBOutlet weak var category: UILabel!
-    
+    let modelTask:ModelTask = ModelTask()
     override func viewDidLoad() {
         super.viewDidLoad()
-        tilte.text = arrTitleTask[myIndex]
-        let deadlineSplit = arrDeadlineTask[myIndex].components(separatedBy: " ")
+        tilte.text = avTitleTask[indexAvailable]
+        let deadlineSplit = avDeadlineTask[indexAvailable].components(separatedBy: " ")
         deadline.text = ("\(deadlineSplit[1])")
-        category.text = arrCategoryTask[myIndex]
+        category.text = avCategoryTask[indexAvailable]
         // Do any additional setup after loading the view.
     }
 
@@ -28,15 +28,13 @@ class detailsTask: Util {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func btDelete(_ sender: Any) {
+        modelTask.deleteTask(id: avIdTask[indexAvailable])
+        avIdTask.remove(at: indexAvailable);
+        avTitleTask.remove(at: indexAvailable);
+        avDeadlineTask.remove(at: indexAvailable);
+        avColorTask.remove(at: indexAvailable);
+        avCategoryTask.remove(at: indexAvailable);
+        self.dismissSegue()
     }
-    */
-
 }

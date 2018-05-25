@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import UserNotifications
 
-var arrIdTask:[String] = []
-var arrTitleTask:[String] = []
-var arrDeadlineTask:[String] = []
-var arrCategoryTask:[String] = []
-var arrColorTask:[String] = []
-var myIndex = 0
+var avIdTask:[String] = []
+var avTitleTask:[String] = []
+var avDeadlineTask:[String] = []
+var avCategoryTask:[String] = []
+var avColorTask:[String] = []
+var indexAvailable = 0
 
 class AvailableTab: Util, UITableViewDataSource, UITableViewDelegate {
     let idCell:String = "Cell";
@@ -49,17 +50,17 @@ class AvailableTab: Util, UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //print("\(arrIdTask.count)")
-        return arrIdTask.count
+        return avIdTask.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:TaskCell = listAvailable.dequeueReusableCell(withIdentifier: idCell) as! TaskCell
         
-        cell.labelTask.text = arrTitleTask[indexPath.row]
-        cell.labelDate.text = arrDeadlineTask[indexPath.row]
+        cell.labelTask.text = avTitleTask[indexPath.row]
+        cell.labelDate.text = avDeadlineTask[indexPath.row]
         cell.viewCategory!.layer.cornerRadius = 12.5;
         cell.viewCategory!.clipsToBounds = true;
-        cell.viewCategory!.backgroundColor = self.convertColor(string: arrColorTask[indexPath.row])
+        cell.viewCategory!.backgroundColor = self.convertColor(string: avColorTask[indexPath.row])
         
         return cell
     }
@@ -69,33 +70,45 @@ class AvailableTab: Util, UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        myIndex = indexPath.row
+        indexAvailable = indexPath.row
         performSegue(withIdentifier: "segueAvailable", sender: self)
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
         let done = UITableViewRowAction(style: .normal, title: "Done") { action, index in
-            self.modelTask.done(id: arrIdTask[index.row])
+            let center = UNUserNotificationCenter.current()
+            center.removePendingNotificationRequests(withIdentifiers:[avIdTask[index.row]]) //Removing the current deadline's notification to this task
+            self.moveToDone(index: index.row)
+            self.modelTask.done(id: avIdTask[index.row])
             self.removeFromArrayAvailable(index: index.row)
         }
         done.backgroundColor = UIColor.green
         
         let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
-            self.modelTask.deleteTask(id: arrIdTask[index.row])
+            let center = UNUserNotificationCenter.current()
+            center.removePendingNotificationRequests(withIdentifiers:[avIdTask[index.row]])
+            self.modelTask.deleteTask(id: avIdTask[index.row])
             self.removeFromArrayAvailable(index: index.row)
         }
         delete.backgroundColor = UIColor.red
         return [delete, done]
-        
     }
     
     func removeFromArrayAvailable(index:Int) {
-        arrIdTask.remove(at: index);
-        arrTitleTask.remove(at: index);
-        arrDeadlineTask.remove(at: index);
-        arrColorTask.remove(at: index);
-        arrCategoryTask.remove(at: index);
+        avIdTask.remove(at: index);
+        avTitleTask.remove(at: index);
+        avDeadlineTask.remove(at: index);
+        avColorTask.remove(at: index);
+        avCategoryTask.remove(at: index);
         self.listAvailable.reloadData();
+    }
+    
+    func moveToDone(index:Int) {
+        doneIdTask.append(avIdTask[index])
+        doneTitleTask.append(avTitleTask[index])
+        doneDeadlineTask.append(avDeadlineTask[index])
+        doneColorTask.append(avColorTask[index])
+        doneCategoryTask.append(avCategoryTask[index])
     }
     
     func arrayTasks() {
@@ -108,23 +121,23 @@ class AvailableTab: Util, UITableViewDataSource, UITableViewDelegate {
             if (statusTask=="doing"){
                 //id
                 let idTask:String = currentTask.value(forKey: "id") as! String;
-                arrIdTask.append(idTask);
+                avIdTask.append(idTask);
                 //Title
                 let myTask:String = currentTask.value(forKey: "title") as! String;
-                arrTitleTask.append(myTask);
+                avTitleTask.append(myTask);
                 //Deadline
                 let deadlineTask:Date = currentTask.value(forKey: "deadline")! as! Date;
                 let finalDate = dateFormatter.string(from: deadlineTask);
-                arrDeadlineTask.append(finalDate);
+                avDeadlineTask.append(finalDate);
                 //Color
                 let categoryColor:String = currentTask.value(forKey: "category")! as! String;
-                arrCategoryTask.append(categoryColor);
+                avCategoryTask.append(categoryColor);
                 //This for get all the categories to search the color of it
                 for currentCategory in modelCategory.getAll() {
                     let categoriesToCompare:String = currentCategory.value(forKey: "category")! as! String;
                     if(categoriesToCompare==categoryColor){
                         let hexColor:String = currentCategory.value(forKey: "color")! as! String;
-                        arrColorTask.append(hexColor);
+                        avColorTask.append(hexColor);
                     }
                 }
             }

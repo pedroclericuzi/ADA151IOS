@@ -72,5 +72,4 @@ class SettingsClass: Util {
     @IBAction func cencel(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    
 }
