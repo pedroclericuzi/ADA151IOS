@@ -8,18 +8,36 @@
 
 import UIKit
 
-class addCategory: Util, UITableViewDelegate {
+class addCategory: Util, UIPickerViewDelegate, UIPickerViewDataSource {
 
     @IBOutlet weak var titleCategory: UITextField!
-    @IBOutlet weak var hexCategory: UITextField!
+    @IBOutlet weak var pickerColors: UIPickerView!
     
     //Classes to do communication with the base
-    let modelTask:ModelTask = ModelTask()
     let modelCategory: ModelCategory = ModelCategory();
-    
+    let modelColor: ModelColor = ModelColor();
+    var generalColors:[String] = [];
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        pickerColors.dataSource = self;
+        pickerColors.delegate = self;
+        
+        for currentColor in modelColor.getAll() {
+            let myColor:String = currentColor.value(forKey: "name")! as! String;
+            generalColors.append(myColor);
+        }
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return generalColors.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return generalColors[row]
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,7 +50,9 @@ class addCategory: Util, UITableViewDelegate {
     }
     
     @IBAction func save(_ sender: Any) {
-        modelCategory.save(name: self.titleCategory.text!, color: self.hexCategory.text!)
+        let componentColor:Int = self.pickerColors.selectedRow(inComponent: 0);
+        let valueColors = generalColors[componentColor]
+        modelCategory.save(name: self.titleCategory.text!, color: valueColors)
         self.dismissSegue()
     }
 

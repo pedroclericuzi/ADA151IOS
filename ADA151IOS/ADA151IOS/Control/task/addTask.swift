@@ -13,27 +13,27 @@ class addTask: Util, UIPickerViewDataSource, UIPickerViewDelegate {
     
     @IBOutlet weak var titleTask: UITextField!
     @IBOutlet weak var deadlineTask: UIDatePicker!
-    @IBOutlet weak var categoriesTask: UIPickerView!
+    @IBOutlet weak var colorTask: UIPickerView!
+    @IBOutlet weak var categoryTask: UITextField!
     
     //Classes to do communication with the base
     let modelTask:ModelTask = ModelTask()
     let modelCategory: ModelCategory = ModelCategory();
+    let modelColor: ModelColor = ModelColor();
     
-    var generalCategories:[String] = [];
-    @IBOutlet weak var pickerCategories: UIPickerView!
+    var generalColors:[String] = [];
+    @IBOutlet weak var pickerColors: UIPickerView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        pickerCategories.dataSource = self;
-        pickerCategories.delegate = self;
+        colorTask.dataSource = self;
+        colorTask.delegate = self;
         
         self.deadlineTask.timeZone = TimeZone(secondsFromGMT: 2*60*60) //Fixing the datepicker to local time in Prague
-        modelCategory.categoryInit()
-        for currentCategory in modelCategory.getAll() {
-            let myCategory:String = currentCategory.value(forKey: "category")! as! String;
-            generalCategories.append(myCategory);
+        modelColor.colorInit()
+        for currentColor in modelColor.getAll() {
+            let myColor:String = currentColor.value(forKey: "name")! as! String;
+            generalColors.append(myColor);
         }
-        
-        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -46,12 +46,14 @@ class addTask: Util, UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     @IBAction func btSaveTask(_ sender: Any) {
-        let componentCategory:Int = self.pickerCategories.selectedRow(inComponent: 0);
+        let componentColor:Int = self.pickerColors.selectedRow(inComponent: 0);
         let valueTitleTask = self.titleTask.text!
         let valueDeadlineTask = self.timeFormat(deadline: self.deadlineTask.date)
-        let valueCategories = generalCategories[componentCategory]
-        let idRet:String = modelTask.saveTask(title: valueTitleTask, mDate: valueDeadlineTask, category: valueCategories)
-        self.newData(id: idRet, title: valueTitleTask, deadline: valueDeadlineTask, category: valueCategories)
+        let valueColors = generalColors[componentColor]
+        let valueCategory = self.categoryTask.text!
+        let idRet:String = modelTask.saveTask(title: valueTitleTask, mDate: valueDeadlineTask, category:valueCategory, color: valueColors)
+        self.newData(id: idRet, title: valueTitleTask, deadline: valueDeadlineTask, category:valueCategory, color: valueColors)
+        self.modelCategory.save(name: valueCategory, color: valueColors)
         self.dismissSegue()
     }
     
@@ -66,7 +68,7 @@ class addTask: Util, UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     //Method to add the new data in array
-    func newData(id:String, title:String, deadline:Date, category:String) {
+    func newData(id:String, title:String, deadline:Date, category:String, color:String) {
         if id.elementsEqual("error") == false {
             avIdTask.append(id)
             avTitleTask.append(title)
@@ -75,13 +77,13 @@ class addTask: Util, UIPickerViewDataSource, UIPickerViewDelegate {
             dateFormatter.timeZone = TimeZone(abbreviation: "GMT+2:00");
             avDeadlineTask.append("deadline: \(dateFormatter.string(from: deadline))")
             avCategoryTask.append(category)
+            avColorTask.append(color)
             
-            let modelCategory: ModelCategory = ModelCategory();
-            for currentCategory in modelCategory.getAll() {
-                let categoriesToCompare:String = currentCategory.value(forKey: "category")! as! String;
-                if(categoriesToCompare==category){
-                    let hexColor:String = currentCategory.value(forKey: "color")! as! String;
-                    avColorTask.append(hexColor);
+            for currentColor in modelColor.getAll() {
+                let colorsToCompare:String = currentColor.value(forKey: "name")! as! String;
+                if(colorsToCompare==color){
+                    let hexColor:String = currentColor.value(forKey: "hex")! as! String;
+                    avHexTask.append(hexColor);
                 }
             }
             self.localNotification(deadline:deadline, title: title, id: id)
@@ -93,11 +95,11 @@ class addTask: Util, UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return generalCategories.count
+        return generalColors.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return generalCategories[row]
+        return generalColors[row]
     }
     
 }

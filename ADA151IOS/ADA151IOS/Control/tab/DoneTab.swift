@@ -13,17 +13,16 @@ var doneTitleTask:[String] = []
 var doneDeadlineTask:[String] = []
 var doneCategoryTask:[String] = []
 var doneColorTask:[String] = []
+var doneHexTask:[String] = []
 var indexDone = 0
 
 class DoneTab: Util, UITableViewDataSource, UITableViewDelegate {
     let idCell:String = "CellDone";
-//    var arr:[String] = ["Teste 4", "Teste 5", "Teste 6"]
-//    var arrDate:[String] = ["05/05/1995", "05/05/1995", "05/05/1995"]
-//    var arrColor:[String] = ["#000000", "#79A700", "#E2B400"]
     @IBOutlet weak var listDone: UITableView!
     //Classes to do communication with the base
     let modelTask:ModelTask = ModelTask()
     let modelCategory: ModelCategory = ModelCategory();
+    let modelColor: ModelColor = ModelColor();
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,9 +68,9 @@ class DoneTab: Util, UITableViewDataSource, UITableViewDelegate {
         
         cell.labelTask.text = doneTitleTask[indexPath.row]
         cell.labelDate.text = doneDeadlineTask[indexPath.row]
-        cell.viewCategory!.layer.cornerRadius = 12.5;
-        cell.viewCategory!.clipsToBounds = true;
-        cell.viewCategory!.backgroundColor = self.convertColor(string: doneColorTask[indexPath.row])
+        cell.viewColor!.layer.cornerRadius = 12.5;
+        cell.viewColor!.clipsToBounds = true;
+        cell.viewColor!.backgroundColor = self.convertColor(string: doneHexTask[indexPath.row])
         
         return cell
     }
@@ -86,15 +85,20 @@ class DoneTab: Util, UITableViewDataSource, UITableViewDelegate {
         
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        indexDone = indexPath.row
+        performSegue(withIdentifier: "segueDone", sender: self)
+    }
+    //clean this position in array
     func removeFromArrayDone(index:Int) {
         doneIdTask.remove(at: index);
         doneTitleTask.remove(at: index);
         doneDeadlineTask.remove(at: index);
+        doneHexTask.remove(at: index);
         doneColorTask.remove(at: index);
-        doneCategoryTask.remove(at: index);
         self.listDone.reloadData();
     }
-    
+    //create each position in global array
     func doneArrayTasks() {
         for currentTask in modelTask.getTask() {
             let dateFormatter = DateFormatter();
@@ -113,15 +117,18 @@ class DoneTab: Util, UITableViewDataSource, UITableViewDelegate {
                 let deadlineTask:Date = currentTask.value(forKey: "deadline")! as! Date;
                 let finalDate = dateFormatter.string(from: deadlineTask);
                 doneDeadlineTask.append(finalDate);
+                //Category
+                let categoryTask:String = currentTask.value(forKey: "category") as! String;
+                doneCategoryTask.append(categoryTask);
                 //Color
-                let categoryColor:String = currentTask.value(forKey: "category")! as! String;
-                doneCategoryTask.append(categoryColor);
-                //This for get all the categories to search the color of it
-                for currentCategory in modelCategory.getAll() {
-                    let categoriesToCompare:String = currentCategory.value(forKey: "category")! as! String;
-                    if(categoriesToCompare==categoryColor){
-                        let hexColor:String = currentCategory.value(forKey: "color")! as! String;
-                        doneColorTask.append(hexColor);
+                let colorName:String = currentTask.value(forKey: "color")! as! String;
+                doneColorTask.append(colorName);
+                //This for get all the color to search the color of it
+                for currentColor in modelColor.getAll() {
+                    let colorsToCompare:String = currentColor.value(forKey: "name")! as! String;
+                    if(colorsToCompare==colorName){
+                        let hexColor:String = currentColor.value(forKey: "hex")! as! String;
+                        doneHexTask.append(hexColor);
                     }
                 }
             }

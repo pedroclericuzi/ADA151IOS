@@ -23,7 +23,7 @@ class ModelTask: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func saveTask(title:String, mDate:Date, category:String) -> String {
+    func saveTask(title:String, mDate:Date, category:String, color:String) -> String {
         let context = utilControler.initCoreData();
         do {
             let objManagement = NSEntityDescription.insertNewObject(forEntityName: "Task", into: context);
@@ -32,6 +32,7 @@ class ModelTask: UIViewController {
             objManagement.setValue(title, forKey: "title");
             objManagement.setValue(mDate, forKey: "deadline");
             objManagement.setValue(category, forKey: "category");
+            objManagement.setValue(color, forKey: "color");
             objManagement.setValue("doing", forKey: "status");
             try context.save();
             return id
@@ -41,7 +42,7 @@ class ModelTask: UIViewController {
         }
     }
     
-    func editTask(id:String,titleTask:String,mDate:Date,category:String) {
+    func editTask(id:String,titleTask:String,mDate:Date, category:String, color:String) {
         let context = utilControler.initCoreData();
         let requisition = NSFetchRequest<NSFetchRequestResult>(entityName:"Task");
         requisition.predicate = NSPredicate(format: "id == %@", id);
@@ -55,6 +56,7 @@ class ModelTask: UIViewController {
                 objManagement.setValue(titleTask, forKey: "title");
                 objManagement.setValue(mDate, forKey: "deadline");
                 objManagement.setValue(category, forKey: "category");
+                objManagement.setValue(color, forKey: "color");
                 objManagement.setValue("doing", forKey: "status");
                 context.delete(managedObject);
                 try context.save();
@@ -85,7 +87,7 @@ class ModelTask: UIViewController {
     func getSpecificTask(id:String) -> [NSManagedObject] {
         let context = utilControler.initCoreData();
         let requisition = NSFetchRequest<NSFetchRequestResult>(entityName:"Task");
-        let sort = NSSortDescriptor(key: "deadline", ascending: true); //order by category
+        let sort = NSSortDescriptor(key: "deadline", ascending: true); //order by deadline
         requisition.predicate = NSPredicate(format: "id == %@", id);
         requisition.sortDescriptors = [sort];
         var myTask:[NSManagedObject]?;
@@ -132,6 +134,8 @@ class ModelTask: UIViewController {
                 objManagement.setValue(deadline, forKey: "deadline");
                 let category:String = managedObject.value(forKey: "category") as! String;
                 objManagement.setValue(category, forKey: "category");
+                let color:String = managedObject.value(forKey: "color") as! String;
+                objManagement.setValue(color, forKey: "color");
                 objManagement.setValue("done", forKey: "status");
                 context.delete(managedObject);
                 try context.save();

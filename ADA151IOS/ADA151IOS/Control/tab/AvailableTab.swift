@@ -14,6 +14,7 @@ var avTitleTask:[String] = []
 var avDeadlineTask:[String] = []
 var avCategoryTask:[String] = []
 var avColorTask:[String] = []
+var avHexTask:[String] = []
 var indexAvailable = 0
 
 class AvailableTab: Util, UITableViewDataSource, UITableViewDelegate {
@@ -23,6 +24,7 @@ class AvailableTab: Util, UITableViewDataSource, UITableViewDelegate {
     //Classes to do communication with the base
     let modelTask:ModelTask = ModelTask()
     let modelCategory: ModelCategory = ModelCategory();
+    let modelColor: ModelColor = ModelColor();
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,9 +60,9 @@ class AvailableTab: Util, UITableViewDataSource, UITableViewDelegate {
         
         cell.labelTask.text = avTitleTask[indexPath.row]
         cell.labelDate.text = avDeadlineTask[indexPath.row]
-        cell.viewCategory!.layer.cornerRadius = 12.5;
-        cell.viewCategory!.clipsToBounds = true;
-        cell.viewCategory!.backgroundColor = self.convertColor(string: avColorTask[indexPath.row])
+        cell.viewColor!.layer.cornerRadius = 12.5;
+        cell.viewColor!.clipsToBounds = true;
+        cell.viewColor!.backgroundColor = self.convertColor(string: avHexTask[indexPath.row])
         
         return cell
     }
@@ -93,24 +95,24 @@ class AvailableTab: Util, UITableViewDataSource, UITableViewDelegate {
         delete.backgroundColor = UIColor.red
         return [delete, done]
     }
-    
+    //clean this position in array
     func removeFromArrayAvailable(index:Int) {
         avIdTask.remove(at: index);
         avTitleTask.remove(at: index);
         avDeadlineTask.remove(at: index);
+        avHexTask.remove(at: index);
         avColorTask.remove(at: index);
-        avCategoryTask.remove(at: index);
         self.listAvailable.reloadData();
     }
-    
+    //move to done list the index position
     func moveToDone(index:Int) {
         doneIdTask.append(avIdTask[index])
         doneTitleTask.append(avTitleTask[index])
         doneDeadlineTask.append(avDeadlineTask[index])
+        doneHexTask.append(avHexTask[index])
         doneColorTask.append(avColorTask[index])
-        doneCategoryTask.append(avCategoryTask[index])
     }
-    
+    //create each position in global array
     func arrayTasks() {
         for currentTask in modelTask.getTask() {
             let dateFormatter = DateFormatter();
@@ -129,15 +131,18 @@ class AvailableTab: Util, UITableViewDataSource, UITableViewDelegate {
                 let deadlineTask:Date = currentTask.value(forKey: "deadline")! as! Date;
                 let finalDate = dateFormatter.string(from: deadlineTask);
                 avDeadlineTask.append(finalDate);
+                //Category
+                let myCategory:String = currentTask.value(forKey: "category") as! String;
+                avCategoryTask.append(myCategory);
                 //Color
-                let categoryColor:String = currentTask.value(forKey: "category")! as! String;
-                avCategoryTask.append(categoryColor);
-                //This for get all the categories to search the color of it
-                for currentCategory in modelCategory.getAll() {
-                    let categoriesToCompare:String = currentCategory.value(forKey: "category")! as! String;
-                    if(categoriesToCompare==categoryColor){
-                        let hexColor:String = currentCategory.value(forKey: "color")! as! String;
-                        avColorTask.append(hexColor);
+                let colorName:String = currentTask.value(forKey: "color")! as! String;
+                avColorTask.append(colorName);
+                //This for get all the color to search the color of it
+                for currentColor in modelColor.getAll() {
+                    let colorsToCompare:String = currentColor.value(forKey: "name")! as! String;
+                    if(colorsToCompare==colorName){
+                        let hexColor:String = currentColor.value(forKey: "hex")! as! String;
+                        avHexTask.append(hexColor);
                     }
                 }
             }

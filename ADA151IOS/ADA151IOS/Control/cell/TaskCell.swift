@@ -12,6 +12,6 @@ class TaskCell: UITableViewCell {
 
     @IBOutlet weak var labelTask: UILabel!
     @IBOutlet weak var labelDate: UILabel!
-    @IBOutlet weak var viewCategory: UIView!
+    @IBOutlet weak var viewColor: UIView!
 
 }

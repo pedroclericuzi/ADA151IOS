@@ -11,15 +11,15 @@
 		9E18474720B543B700CAD384 /* DoneTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E18474620B543B700CAD384 /* DoneTab.swift */; };
 		9E18475020B54E5400CAD384 /* taskCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E18474F20B54E5400CAD384 /* taskCell.xib */; };
 		9E18475420B5532400CAD384 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E18475320B5532400CAD384 /* TaskCell.swift */; };
-		9E18475820B57EBE00CAD384 /* addTask.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E18475720B57EBE00CAD384 /* addTask.storyboard */; };
 		9E18475A20B57F0900CAD384 /* addTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E18475920B57F0900CAD384 /* addTask.swift */; };
-		9E18475C20B5803D00CAD384 /* settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E18475B20B5803D00CAD384 /* settings.storyboard */; };
 		9E18475E20B5829E00CAD384 /* SettingsClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E18475D20B5829E00CAD384 /* SettingsClass.swift */; };
 		9E18476020B5BA4500CAD384 /* addCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E18475F20B5BA4500CAD384 /* addCategory.swift */; };
 		9E18476520B6634B00CAD384 /* detailsTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E18476420B6634B00CAD384 /* detailsTask.swift */; };
 		9E18476720B6790100CAD384 /* editTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E18476620B6790100CAD384 /* editTask.swift */; };
 		9E18476920B67D2D00CAD384 /* ModelTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E18476820B67D2D00CAD384 /* ModelTask.swift */; };
 		9E18476B20B67D4500CAD384 /* ModelCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E18476A20B67D4500CAD384 /* ModelCategory.swift */; };
+		9E18476D20B80D6000CAD384 /* ModelColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E18476C20B80D6000CAD384 /* ModelColor.swift */; };
+		9E18477020B834E600CAD384 /* detailsDone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E18476F20B834E600CAD384 /* detailsDone.swift */; };
 		9E62692B20B4531F0015D5A6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62692A20B4531F0015D5A6 /* AppDelegate.swift */; };
 		9E62692D20B4531F0015D5A6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62692C20B4531F0015D5A6 /* ViewController.swift */; };
 		9E62693020B4531F0015D5A6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E62692E20B4531F0015D5A6 /* Main.storyboard */; };
@@ -53,15 +53,15 @@
 		9E18474620B543B700CAD384 /* DoneTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneTab.swift; sourceTree = "<group>"; };
 		9E18474F20B54E5400CAD384 /* taskCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = taskCell.xib; sourceTree = "<group>"; };
 		9E18475320B5532400CAD384 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
-		9E18475720B57EBE00CAD384 /* addTask.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = addTask.storyboard; sourceTree = "<group>"; };
 		9E18475920B57F0900CAD384 /* addTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addTask.swift; sourceTree = "<group>"; };
-		9E18475B20B5803D00CAD384 /* settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = settings.storyboard; sourceTree = "<group>"; };
 		9E18475D20B5829E00CAD384 /* SettingsClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsClass.swift; sourceTree = "<group>"; };
 		9E18475F20B5BA4500CAD384 /* addCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addCategory.swift; sourceTree = "<group>"; };
 		9E18476420B6634B00CAD384 /* detailsTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = detailsTask.swift; sourceTree = "<group>"; };
 		9E18476620B6790100CAD384 /* editTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editTask.swift; sourceTree = "<group>"; };
 		9E18476820B67D2D00CAD384 /* ModelTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTask.swift; sourceTree = "<group>"; };
 		9E18476A20B67D4500CAD384 /* ModelCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelCategory.swift; sourceTree = "<group>"; };
+		9E18476C20B80D6000CAD384 /* ModelColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelColor.swift; sourceTree = "<group>"; };
+		9E18476F20B834E600CAD384 /* detailsDone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = detailsDone.swift; sourceTree = "<group>"; };
 		9E62692720B4531F0015D5A6 /* ADA151IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ADA151IOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E62692A20B4531F0015D5A6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E62692C20B4531F0015D5A6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -148,6 +148,14 @@
 			path = settings;
 			sourceTree = "<group>";
 		};
+		9E18476E20B834D500CAD384 /* done */ = {
+			isa = PBXGroup;
+			children = (
+				9E18476F20B834E600CAD384 /* detailsDone.swift */,
+			);
+			path = done;
+			sourceTree = "<group>";
+		};
 		9E62691E20B4531F0015D5A6 = {
 			isa = PBXGroup;
 			children = (
@@ -206,6 +214,7 @@
 			children = (
 				9E18476820B67D2D00CAD384 /* ModelTask.swift */,
 				9E18476A20B67D4500CAD384 /* ModelCategory.swift */,
+				9E18476C20B80D6000CAD384 /* ModelColor.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -215,8 +224,6 @@
 			children = (
 				9E18474C20B54DF600CAD384 /* task */,
 				9E62692E20B4531F0015D5A6 /* Main.storyboard */,
-				9E18475720B57EBE00CAD384 /* addTask.storyboard */,
-				9E18475B20B5803D00CAD384 /* settings.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -224,6 +231,7 @@
 		9EB6C7A520B520FC007733DA /* Control */ = {
 			isa = PBXGroup;
 			children = (
+				9E18476E20B834D500CAD384 /* done */,
 				9E18476320B6618E00CAD384 /* settings */,
 				9E18476220B6618400CAD384 /* task */,
 				9E18476120B6616100CAD384 /* tab */,
@@ -339,10 +347,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E18475020B54E5400CAD384 /* taskCell.xib in Resources */,
-				9E18475C20B5803D00CAD384 /* settings.storyboard in Resources */,
 				9E62693820B453220015D5A6 /* LaunchScreen.storyboard in Resources */,
 				9E62693520B453220015D5A6 /* Assets.xcassets in Resources */,
-				9E18475820B57EBE00CAD384 /* addTask.storyboard in Resources */,
 				9E62693020B4531F0015D5A6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -376,10 +382,12 @@
 				9E18476020B5BA4500CAD384 /* addCategory.swift in Sources */,
 				9E62692B20B4531F0015D5A6 /* AppDelegate.swift in Sources */,
 				9E62693320B4531F0015D5A6 /* ADA151IOS.xcdatamodeld in Sources */,
+				9E18477020B834E600CAD384 /* detailsDone.swift in Sources */,
 				9EB6C7A720B523F5007733DA /* Util.swift in Sources */,
 				9E18474720B543B700CAD384 /* DoneTab.swift in Sources */,
 				9E18475420B5532400CAD384 /* TaskCell.swift in Sources */,
 				9E18476920B67D2D00CAD384 /* ModelTask.swift in Sources */,
+				9E18476D20B80D6000CAD384 /* ModelColor.swift in Sources */,
 				9E18476B20B67D4500CAD384 /* ModelCategory.swift in Sources */,
 				9E18475E20B5829E00CAD384 /* SettingsClass.swift in Sources */,
 			);

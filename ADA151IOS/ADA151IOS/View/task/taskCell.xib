@@ -42,7 +42,7 @@
             <connections>
                 <outlet property="labelDate" destination="fcb-6v-DGa" id="T0v-dq-Yf0"/>
                 <outlet property="labelTask" destination="Qs4-at-YmR" id="3aP-6x-wRB"/>
-                <outlet property="viewCategory" destination="57I-gi-vng" id="vhg-8w-y2v"/>
+                <outlet property="viewColor" destination="57I-gi-vng" id="vhg-8w-y2v"/>
             </connections>
             <point key="canvasLocation" x="-332.5" y="165.5"/>
         </tableViewCell>

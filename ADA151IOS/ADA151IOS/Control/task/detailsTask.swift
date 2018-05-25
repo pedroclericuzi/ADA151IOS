@@ -13,13 +13,18 @@ class detailsTask: Util {
     @IBOutlet weak var tilte: UILabel!
     @IBOutlet weak var deadline: UILabel!
     @IBOutlet weak var category: UILabel!
+    @IBOutlet weak var color: UILabel!
+    
     let modelTask:ModelTask = ModelTask()
+    let modelColor: ModelColor = ModelColor();
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tilte.text = avTitleTask[indexAvailable]
         let deadlineSplit = avDeadlineTask[indexAvailable].components(separatedBy: " ")
         deadline.text = ("\(deadlineSplit[1])")
         category.text = avCategoryTask[indexAvailable]
+        color.text = avColorTask[indexAvailable]
         // Do any additional setup after loading the view.
     }
 
@@ -33,8 +38,8 @@ class detailsTask: Util {
         avIdTask.remove(at: indexAvailable);
         avTitleTask.remove(at: indexAvailable);
         avDeadlineTask.remove(at: indexAvailable);
+        avHexTask.remove(at: indexAvailable);
         avColorTask.remove(at: indexAvailable);
-        avCategoryTask.remove(at: indexAvailable);
         self.dismissSegue()
     }
 }

@@ -4,8 +4,13 @@
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="Color" representedClassName="Color" syncable="YES" codeGenerationType="class">
+        <attribute name="hex" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Task" representedClassName="Task" syncable="YES" codeGenerationType="class">
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="deadline" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
@@ -13,6 +18,7 @@
     </entity>
     <elements>
         <element name="Category" positionX="-63" positionY="18" width="128" height="75"/>
-        <element name="Task" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="Task" positionX="-63" positionY="-18" width="128" height="135"/>
+        <element name="Color" positionX="-54" positionY="36" width="128" height="75"/>
     </elements>
 </model>
